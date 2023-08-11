@@ -1,33 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Random Number Generator</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Random Number Generator</h1>
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $numDice = $_POST["numDice"];
-            $diceType = $_POST["diceType"];
-            
-            echo "<p>Rolling $numDice $diceType-sided dice:</p>";
-            echo "<ul>";
-            
-            $total = 0;
-            for ($i = 1; $i <= $numDice; $i++) {
-                $roll = rand(1, $diceType);
-                $total += $roll;
-                echo "<li>Roll $i: $roll</li>";
-            }
-            
-            echo "</ul>";
-            echo "<p>Total: $total</p>";
-        } else {
-            echo "<p>Please use the form to submit the number of dice and dice type.</p>";
-        }
-        ?>
-    </div>
-</body>
-</html>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the number of dice and dice type from the form
+    $numDice = $_POST["numDice"];
+    $diceType = $_POST["diceType"];
+
+    // Function to generate a random number between 1 and the dice type
+    function rollDice($diceType) {
+        return rand(1, $diceType);
+    }
+
+    // Generate and display the random numbers
+    echo "<h2>Random Numbers:</h2>";
+    for ($i = 1; $i <= $numDice; $i++) {
+        $result = rollDice($diceType);
+        echo "Dice $i: $result<br>";
+    }
+}
+?>
